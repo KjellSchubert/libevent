@@ -165,6 +165,8 @@ extern "C" {
 #endif
 #ifdef _EVENT_HAVE_SYS_TIME_H
 #include <sys/time.h>
+#elif WIN32
+#include "sys/_libevent_time.h"  // for missing <sys/time.h> on Windows
 #endif
 #ifdef _EVENT_HAVE_STDINT_H
 #include <stdint.h>

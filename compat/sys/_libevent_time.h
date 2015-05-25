@@ -36,7 +36,10 @@
 #define _SYS_TIME_H_
 
 #include <sys/types.h>
+#include <time.h>  // msvs 2015 timespec
 
+#if !defined(EVENT_TIMEVAL_DEFINED) && !defined(_WINSOCKAPI_)  // also in winsock[2].h
+#define EVENT_TIMEVAL_DEFINED
 /*
  * Structure returned by gettimeofday(2) system call,
  * and used in other calls.
@@ -45,7 +48,9 @@ struct timeval {
 	long	tv_sec;		/* seconds */
 	long	tv_usec;	/* and microseconds */
 };
+#endif
 
+#if _MSC_VER < 1900
 /*
  * Structure defined by POSIX.1b to be like a timeval.
  */
@@ -53,6 +58,7 @@ struct timespec {
 	time_t	tv_sec;		/* seconds */
 	long	tv_nsec;	/* and nanoseconds */
 };
+#endif
 
 #define	TIMEVAL_TO_TIMESPEC(tv, ts) {					\
 	(ts)->tv_sec = (tv)->tv_sec;					\
